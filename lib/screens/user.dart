@@ -118,13 +118,59 @@ class _UserScreenState extends State<UserScreen> {
             _listTile(
               title: "Logout",
               icon: IconlyLight.logout,
-              onPressed: () {},
+              onPressed: () async {
+                _showLogoutDialog();
+              },
               color: color,
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _showLogoutDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Image.asset(
+                  "assets/images/warning-sign.png",
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.fill,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text("Logout")
+              ],
+            ),
+            content: const Text("Do you want sign out"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (Navigator.canPop(context)) Navigator.pop(context);
+                },
+                child: TextWidget(
+                  title: "Cancel",
+                  color: Colors.cyan,
+                  textSize: 18,
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: TextWidget(
+                  title: "Ok",
+                  color: Colors.red,
+                  textSize: 18,
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Future<void> _showAddressDialog() async {
@@ -162,7 +208,9 @@ class _UserScreenState extends State<UserScreen> {
         textSize: 24,
         isTitle: true,
       ),
-      subtitle: TextWidget(title: subTilte ?? "", color: color, textSize: 18),
+      subtitle: subTilte != null
+          ? TextWidget(title: subTilte, color: color, textSize: 18)
+          : null,
       leading: Icon(icon),
       trailing: const Icon(IconlyLight.arrowRight2),
       onTap: () {
