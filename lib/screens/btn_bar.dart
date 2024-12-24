@@ -18,7 +18,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   int _selectedIndex = 0;
   final List<Map<String, dynamic>> _page = [
     {"page": const HomeScreen(), "title": "Home Screen"},
-    {"page": const CategoriesScreen(), "title": "Categories Screen"},
+    {"page": CategoriesScreen(), "title": "Categories Screen"},
     {"page": const CartScreen(), "title": "Cart Screen"},
     {"page": const UserScreen(), "title": "User Screen"},
   ];
@@ -35,9 +35,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     bool _isDark = themeState.getTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_page[_selectedIndex]["title"]),
-      ),
+      // appBar: AppBar(
+      //   title: Text(_page[_selectedIndex]["title"]),
+      // ),
       body: _page[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: _isDark ? Theme.of(context).cardColor : Colors.white,
