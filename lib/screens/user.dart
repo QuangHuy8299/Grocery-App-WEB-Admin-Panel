@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,6 +16,16 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  final TextEditingController _addressEditingController =
+      TextEditingController(text: "");
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _addressEditingController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -29,7 +41,7 @@ class _UserScreenState extends State<UserScreen> {
               padding: const EdgeInsets.only(left: 20),
               child: RichText(
                 text: TextSpan(
-                  text: "Hi",
+                  text: "Hi, ",
                   style: const TextStyle(
                     color: Colors.cyan,
                     fontSize: 27,
@@ -57,7 +69,9 @@ class _UserScreenState extends State<UserScreen> {
               title: "Address",
               subTilte: "My Subtitle",
               icon: IconlyLight.profile,
-              onPressed: () {},
+              onPressed: () async {
+                _showAddressDialog();
+              },
               color: color,
             ),
             _listTile(
@@ -111,6 +125,27 @@ class _UserScreenState extends State<UserScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _showAddressDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Update"),
+            content: TextField(
+              onChanged: (value) {
+                _addressEditingController.text = value;
+              },
+              controller: _addressEditingController,
+              maxLines: 5,
+              decoration: const InputDecoration(hintText: "Your Address"),
+            ),
+            actions: [
+              TextButton(onPressed: () {}, child: const Text("Update"))
+            ],
+          );
+        });
   }
 
   Widget _listTile({
