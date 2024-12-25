@@ -32,39 +32,49 @@ class _UserScreenState extends State<UserScreen> {
     final Color color = themeState.getTheme ? Colors.white : Colors.black;
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        title: Align(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: RichText(
+                  text: TextSpan(
+                    text: "Hi, ",
+                    style: const TextStyle(
+                      color: Colors.cyan,
+                      fontSize: 27,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: "My Name",
+                          style: TextStyle(
+                            color: color,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = () {}),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child:
+                    TextWidget(title: "test@email", color: color, textSize: 18),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: RichText(
-                text: TextSpan(
-                  text: "Hi, ",
-                  style: const TextStyle(
-                    color: Colors.cyan,
-                    fontSize: 27,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: "My Name",
-                        style: TextStyle(
-                          color: color,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap = () {}),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child:
-                  TextWidget(title: "test@email", color: color, textSize: 18),
-            ),
             _listTile(
               title: "Address",
               subTilte: "My Subtitle",
